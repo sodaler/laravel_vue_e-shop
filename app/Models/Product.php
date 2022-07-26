@@ -10,11 +10,23 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = false;
 
-    public function tags() {
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function getImageUrlAttribute()
+    {
+        return url('storage/' . $this->preview_image);
+    }
+
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class, 'product_tags', 'product_id', 'tag_id');
     }
 
-    public function colors() {
+    public function colors()
+    {
         return $this->belongsToMany(Color::class, 'color_products', 'product_id', 'color_id');
     }
 }

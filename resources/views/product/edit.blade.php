@@ -37,6 +37,9 @@
                         <textarea name="content" class="form-control" cols="30" rows="10" placeholder="content">{{ $product->content }}</textarea>
                     </div>
                     <div class="form-group">
+                        <input value="{{ $product->old_price }}" type="text" name="old_price" class="form-control" placeholder="old price">
+                    </div>
+                    <div class="form-group">
                         <input value="{{ $product->price }}" type="text" name="price" class="form-control" placeholder="price">
                     </div>
                     <div class="form-group">
