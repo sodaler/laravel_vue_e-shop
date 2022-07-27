@@ -256,47 +256,24 @@
                               <div v-if="popupProduct" class="container">
                                 <div class="row justify-content-between align-items-center">
                                   <div class="col-lg-6">
-                                    <div class="quick-view__left-content">
+                                    <div class="quick-view__left-content" v-if="popupProduct.product_images.length > 2">
                                       <div class="tabs">
                                         <div class="popup-product-thumb-box">
                                           <ul>
-                                            <li
+                                            <li v-for="productImage in popupProduct.product_images"
                                                 class="tab-nav popup-product-thumb">
-                                              <a href="#tabb1">
-                                                <img :src="popupProduct.image_url"
-                                                     alt=""/> </a></li>
-                                            <li
-                                                class="tab-nav popup-product-thumb ">
-                                              <a href="#tabb2">
-                                                <img src="src/assets/images/shop/products-v6-img6.jpg"
-                                                     alt=""/> </a></li>
-                                            <li
-                                                class="tab-nav popup-product-thumb ">
-                                              <a href="#tabb3">
-                                                <img src="src/assets/images/shop/products-v6-img7.jpg"
-                                                     alt=""/> </a></li>
+                                              <a :href="`#tabb${productImage.id}`">
+                                                <img :src="productImage.url"
+                                                     alt=""/> </a>
+                                            </li>
                                           </ul>
                                         </div>
                                         <div class="popup-product-main-image-box">
-                                          <div id="tabb1"
+                                          <div v-for="productImage in popupProduct.product_images" :id="`tabb${productImage.id}`"
                                                class="tab-item popup-product-image">
                                             <div
                                                 class="popup-product-single-image">
-                                              <img :src="popupProduct.image_url"
-                                                   alt=""/></div>
-                                          </div>
-                                          <div id="tabb2"
-                                               class="tab-item popup-product-image">
-                                            <div
-                                                class="popup-product-single-image">
-                                              <img src="src/assets/images/shop/products-v6-img6.jpg"
-                                                   alt=""/></div>
-                                          </div>
-                                          <div id="tabb3"
-                                               class="tab-item popup-product-image">
-                                            <div
-                                                class="popup-product-single-image">
-                                              <img src="src/assets/images/shop/products-v6-img7.jpg"
+                                              <img :src="productImage.url"
                                                    alt=""/></div>
                                           </div>
                                           <button class="prev"><i
@@ -436,11 +413,12 @@ export default {
       this.axios.get(`http://localhost:8876/api/products/${id}`)
           .then(res => {
              this.popupProduct = res.data.data
+            console.log(res)
           })
           .finally(v => {
             $(document).trigger('change')
           })
-    }
+    },
   }
 
 }
